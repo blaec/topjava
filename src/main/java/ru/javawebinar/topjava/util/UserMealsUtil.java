@@ -15,6 +15,10 @@ import java.util.stream.Collectors;
  * 31.05.2015.
  */
 public class UserMealsUtil {
+
+    // required for recursion solution
+    private static Map<LocalDate, Integer> mapDay = new HashMap<>();
+
     public static void main(String[] args) {
         List<UserMeal> mealList = Arrays.asList(
                 new UserMeal(LocalDateTime.of(2015, Month.MAY, 30, 10, 0), "Завтрак", 500),
@@ -32,8 +36,8 @@ public class UserMealsUtil {
         // Stream print out
         getFilteredWithExceededByStream(mealList, LocalTime.of(7, 0), LocalTime.of(12, 0), 2000).forEach(System.out::println);
 
-//        .toLocalDate();
-//        .toLocalTime();
+        // Recursion test
+        getFilteredWithExceededRecursion(mealList, LocalTime.of(7, 0), LocalTime.of(12, 0), 2000).forEach(System.out::println);
     }
 
     // Complexity O(N+M)
@@ -77,5 +81,26 @@ public class UserMealsUtil {
                 .map(um -> new UserMealWithExceed(um.getDateTime(), um.getDescription(), um.getCalories(),
                         dailyCalories.get(um.getDateTime().toLocalDate()) > caloriesPerDay))
                 .collect(Collectors.toList());
+    }
+
+    private static List<UserMealWithExceed> getFilteredWithExceededRecursion(List<UserMeal> mealList, LocalTime startTime, LocalTime endTime, int caloriesPerDay) {
+        List<UserMealWithExceed> list = new ArrayList<>();
+
+        // (a, b) -> a + b equivalent to Interger::sum
+        mapDay.merge(mealList.get(0).getDateTime().toLocalDate(), mealList.get(0).getCalories(), (a, b) -> a + b);
+        if (mealList.size() > 1) {
+            list.addAll(getFilteredWithExceededRecursion(mealList.subList(1, mealList.size()), startTime, endTime, caloriesPerDay));
+        }
+
+        LocalTime time = mealList.get(0).getDateTime().toLocalTime();
+        if (TimeUtil.isBetween(time, startTime, endTime)) {
+            list.add(new UserMealWithExceed(
+                    mealList.get(0).getDateTime(),
+                    mealList.get(0).getDescription(),
+                    mealList.get(0).getCalories(),
+                    mapDay.get(mealList.get(0).getDateTime().toLocalDate()) <= caloriesPerDay));
+        }
+
+        return list;
     }
 }
