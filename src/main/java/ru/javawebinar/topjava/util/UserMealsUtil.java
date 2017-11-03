@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.Month;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * GKislin
@@ -16,24 +17,27 @@ import java.util.*;
 public class UserMealsUtil {
     public static void main(String[] args) {
         List<UserMeal> mealList = Arrays.asList(
-                new UserMeal(LocalDateTime.of(2015, Month.MAY, 30,10,0), "Завтрак", 500),
-                new UserMeal(LocalDateTime.of(2015, Month.MAY, 30,13,0), "Обед", 1000),
-                new UserMeal(LocalDateTime.of(2015, Month.MAY, 30,20,0), "Ужин", 500),
-                new UserMeal(LocalDateTime.of(2015, Month.MAY, 31,10,0), "Завтрак", 1000),
-                new UserMeal(LocalDateTime.of(2015, Month.MAY, 31,13,0), "Обед", 500),
-                new UserMeal(LocalDateTime.of(2015, Month.MAY, 31,20,0), "Ужин", 510)
+                new UserMeal(LocalDateTime.of(2015, Month.MAY, 30, 10, 0), "Завтрак", 500),
+                new UserMeal(LocalDateTime.of(2015, Month.MAY, 30, 13, 0), "Обед", 1000),
+                new UserMeal(LocalDateTime.of(2015, Month.MAY, 30, 20, 0), "Ужин", 500),
+                new UserMeal(LocalDateTime.of(2015, Month.MAY, 31, 10, 0), "Завтрак", 1000),
+                new UserMeal(LocalDateTime.of(2015, Month.MAY, 31, 13, 0), "Обед", 500),
+                new UserMeal(LocalDateTime.of(2015, Month.MAY, 31, 20, 0), "Ужин", 510)
         );
 
-        for (UserMealWithExceed meal : getFilteredWithExceeded(mealList, LocalTime.of(7, 0), LocalTime.of(12,0), 2000)) {
+        for (UserMealWithExceed meal : getFilteredWithExceeded(mealList, LocalTime.of(7, 0), LocalTime.of(12, 0), 2000)) {
             System.out.println(meal.toString());
         }
+
+        // Stream print out
+        getFilteredWithExceeded(mealList, LocalTime.of(7, 0), LocalTime.of(12, 0), 2000).forEach(System.out::println);
 
 //        .toLocalDate();
 //        .toLocalTime();
     }
 
     // Complexity O(N+M)
-    private static List<UserMealWithExceed>  getFilteredWithExceeded(List<UserMeal> mealList, LocalTime startTime, LocalTime endTime, int caloriesPerDay) {
+    private static List<UserMealWithExceed> getFilteredWithExceeded(List<UserMeal> mealList, LocalTime startTime, LocalTime endTime, int caloriesPerDay) {
         // TODO return filtered list with correctly exceeded field
         List<UserMealWithExceed> output = new ArrayList<>();
         Map<LocalDate, Integer> dailyCalories = new HashMap<>();
@@ -41,12 +45,16 @@ public class UserMealsUtil {
         // Calculate daily calories for each day
         for (UserMeal userMeal : mealList) {
             LocalDate date = userMeal.getDateTime().toLocalDate();
-            int updatedCalories = userMeal.getCalories();
 
-            if (dailyCalories.containsKey(date)) {
-                updatedCalories += dailyCalories.get(date);
-            }
-            dailyCalories.put(date, updatedCalories);
+            // Map.merge function replaces code below
+            dailyCalories.merge(date, userMeal.getCalories(), Integer::sum);
+
+//            int updatedCalories = userMeal.getCalories();
+//
+//            if (dailyCalories.containsKey(date)) {
+//                updatedCalories += dailyCalories.get(date);
+//            }
+//            dailyCalories.put(date, updatedCalories);
         }
 
         // Filter results by dates
@@ -58,9 +66,22 @@ public class UserMealsUtil {
                 Boolean exceed = dailyCalories.get(date) > caloriesPerDay;
                 UserMealWithExceed userMealWithExceed = new UserMealWithExceed(userMeal.getDateTime(), userMeal.getDescription(), userMeal.getCalories(), exceed);
                 output.add(userMealWithExceed);
-//                System.out.println(userMealWithExceed);
             }
         }
+
+        return output;
+    }
+
+    private static List<UserMealWithExceed> getFilteredWithExceededByStream(List<UserMeal> mealList, LocalTime startTime, LocalTime endTime, int caloriesPerDay) {
+        List<UserMealWithExceed> output = new ArrayList<>();
+        Map<LocalDate, Integer> dailyCalories = new HashMap<>();
+
+//        dailyCalories = mealList.stream()
+//                                .collect(Collectors.toMap((UserMeal::getDateTime).toLocalTime, UserMeal::getCalories));
+//        dailyCalories = mealList.stream().map();
+//
+//        output =
+
 
         return output;
     }
