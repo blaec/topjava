@@ -23,11 +23,8 @@ public class MealServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         log.debug("redirect to meals");
 
-        // Get filtered meals list with exceed parameter
-        List<Meal> meals = MealsUtil.getMeals();
-        List<MealWithExceed> mealsWithExceeded = MealsUtil.getFilteredWithExceeded(meals, LocalTime.of(7, 0), LocalTime.of(12, 0), 2000);
-
-        request.setAttribute("mealsList", mealsWithExceeded);
+        request.setAttribute("mealsList",
+                MealsUtil.getWithExceeded(MealsUtil.MEAL_LIST,2000));
         request.getRequestDispatcher("/meals.jsp").forward(request, response);
 //        response.sendRedirect("meals.jsp");
     }
