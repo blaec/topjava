@@ -56,18 +56,27 @@ public class InMemoryUserRepositoryImpl implements UserRepository {
     @Override
     public User getByEmail(String email) {
         log.info("getByEmail {}", email);
-//        User output = null;
-//        for (Integer id : userRepository.keySet()) {
-//            User user = this.get(id);
-//            String e_mail = user.getEmail();
-//            if (e_mail.equals(email)) {
-//                output = this.get(id);
-//            }
-//        }
+/*
+        // Without stream
+        User output = null;
+        for (Integer id : userRepository.keySet()) {
+            User user = this.get(id);
+            String e_mail = user.getEmail();
+            if (e_mail.equals(email)) {
+                output = this.get(id);
+            }
+        }
+        */
+/*
+        // stream with entrySet
         return userRepository.entrySet().stream()
                 .filter(user -> user.getValue().getEmail().equals(email))
                 .findFirst()
-                .get()                  // can return error if nothing found
+                .get()                  // can return error if nothing found NPE
                 .getValue();
+*/
+        return userRepository.values().stream()
+                .filter(user -> user.getEmail().equals(email))
+                .findFirst().orElse(null);
     }
 }
