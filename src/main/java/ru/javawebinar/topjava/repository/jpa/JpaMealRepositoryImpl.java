@@ -16,7 +16,7 @@ import java.util.List;
 
 
 @Repository
-@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
+@Transactional(readOnly = true)
 public class JpaMealRepositoryImpl implements MealRepository {
 
     @PersistenceContext
@@ -25,15 +25,16 @@ public class JpaMealRepositoryImpl implements MealRepository {
     @Override
     @Transactional
     public Meal save(Meal meal, int userId) {
-        User ref = em.getReference(User.class, userId);
-        meal.setUser(ref);
-        if (meal.isNew() ) {
-            em.persist(meal);
-        } else {
-            if (get(meal.getId(), userId) == null) return null;
-            em.merge(meal);
+        if (!meal.isNew() && get(meal.getId(), userId) == null) {
+            return null;
         }
-        return meal;
+        meal.setUser(em.getReference(User.class, userId));
+        if (meal.isNew()) {
+            em.persist(meal);
+            return meal;
+        } else {
+            return em.merge(meal);
+        }
     }
 
     @Override
@@ -52,6 +53,9 @@ public class JpaMealRepositoryImpl implements MealRepository {
                 .setParameter("user_id", userId)
                 .getResultList();
         return meals.size() == 0 ? null : DataAccessUtils.requiredSingleResult(meals);
+
+//        Meal meal = em.find(Meal.class, id);
+//        return meal != null && meal.getUser().getId() == userId ? meal : null;
     }
 
     @Override
