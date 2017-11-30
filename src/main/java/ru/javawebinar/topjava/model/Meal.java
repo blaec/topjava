@@ -1,8 +1,7 @@
 package ru.javawebinar.topjava.model;
 
 import org.hibernate.validator.constraints.Range;
-import org.springframework.format.annotation.DateTimeFormat;
-import ru.javawebinar.topjava.util.LocalDatePersistenceConverter;
+import ru.javawebinar.topjava.model.convertor.LocalDateTimeConverter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -11,23 +10,26 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 @NamedQueries({
-        @NamedQuery(name = Meal.GET, query = "SELECT m FROM Meal m LEFT JOIN FETCH m.user WHERE m.id =:id AND m.user.id =:user_id"),
-        @NamedQuery(name = Meal.ALL_SORTED, query = "SELECT m FROM Meal m LEFT JOIN FETCH m.user WHERE m.user.id =:user_id ORDER BY m.dateTime DESC"),
+        @NamedQuery(name = Meal.GET, query = "SELECT m FROM Meal m WHERE m.id =:id AND m.user.id =:user_id"),
+        @NamedQuery(name = Meal.ALL_SORTED, query = "SELECT m FROM Meal m WHERE m.user.id =:user_id ORDER BY m.dateTime DESC"),
         @NamedQuery(name = Meal.DELETE, query = "DELETE FROM Meal m WHERE m.id=:id AND m.user.id =:user_id"),
-        @NamedQuery(name = Meal.GET_BETWEEN, query = "DELETE FROM Meal m WHERE m.dateTime<=:startDate AND m.dateTime>=:endDate AND m.user.id =:user_id"),
+        @NamedQuery(name = Meal.DELETE_ALL, query = "DELETE FROM Meal m WHERE m.user.id =:user_id"),
+        @NamedQuery(name = Meal.GET_BETWEEN, query = "SELECT m FROM Meal m WHERE m.dateTime<=:startDate AND m.dateTime>=:endDate AND m.user.id =:user_id ORDER BY m.dateTime DESC"),
 })
 
 @Entity
 @Table(name = "meals", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "date_time"}, name = "meals_unique_user_datetime_idx")})
+//@SuppressWarnings("JpaQlInspection")
 public class Meal extends AbstractBaseEntity {
 
     public static final String GET = "Meal.get";
     public static final String ALL_SORTED = "Meal.getAll";
     public static final String DELETE = "Meal.delete";
+    public static final String DELETE_ALL = "Meal.deleteAll";
     public static final String GET_BETWEEN = "Meal.getBetween";
 
     @Column(name = "date_time", nullable = false)
-//    @Convert(converter = LocalDatePersistenceConverter.class)
+    @Convert(converter = LocalDateTimeConverter.class)
 //    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @NotBlank
     private LocalDateTime dateTime;
@@ -42,7 +44,7 @@ public class Meal extends AbstractBaseEntity {
     private int calories;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     public Meal() {

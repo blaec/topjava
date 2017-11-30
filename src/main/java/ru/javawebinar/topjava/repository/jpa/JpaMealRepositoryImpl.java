@@ -1,8 +1,11 @@
 package ru.javawebinar.topjava.repository.jpa;
 
+import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import ru.javawebinar.topjava.model.Meal;
+import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.repository.MealRepository;
 
 import javax.persistence.EntityManager;
@@ -13,7 +16,7 @@ import java.util.List;
 
 
 @Repository
-@Transactional(readOnly = true)
+@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
 public class JpaMealRepositoryImpl implements MealRepository {
 
     @PersistenceContext
@@ -22,12 +25,15 @@ public class JpaMealRepositoryImpl implements MealRepository {
     @Override
     @Transactional
     public Meal save(Meal meal, int userId) {
+        User ref = em.getReference(User.class, userId);
+        meal.setUser(ref);
         if (meal.isNew() ) {
             em.persist(meal);
-            return meal;
         } else {
-            return em.merge(meal);
+            if (get(meal.getId(), userId) == null) return null;
+            em.merge(meal);
         }
+        return meal;
     }
 
     @Override
@@ -41,10 +47,11 @@ public class JpaMealRepositoryImpl implements MealRepository {
 
     @Override
     public Meal get(int id, int userId) {
-        return em.createNamedQuery(Meal.GET, Meal.class)
+        List<Meal> meals =  em.createNamedQuery(Meal.GET, Meal.class)
                 .setParameter("id", id)
                 .setParameter("user_id", userId)
-                .getSingleResult();
+                .getResultList();
+        return meals.size() == 0 ? null : DataAccessUtils.requiredSingleResult(meals);
     }
 
     @Override
