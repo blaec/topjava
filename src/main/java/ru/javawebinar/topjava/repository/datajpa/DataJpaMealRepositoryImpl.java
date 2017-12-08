@@ -22,14 +22,10 @@ public class DataJpaMealRepositoryImpl implements MealRepository {
 
     @Override
     public Meal save(Meal meal, int userId) {
+        meal.setUser(crudUserRepository.getOne(userId));
         if (!meal.isNew() && get(meal.getId(), userId) == null) {
             return null;
         }
-
-        User user = crudUserRepository.getOne(userId);
-        if (user == null) return null;
-
-        meal.setUser(user);
         return crudRepository.save(meal);
     }
 
@@ -41,18 +37,17 @@ public class DataJpaMealRepositoryImpl implements MealRepository {
 
     @Override
     public Meal get(int id, int userId) {
-//        return crudRepository.findByIdAndByUserId(id, userId).orElse(null);
-        return null;
+        return crudRepository.get(id, userId);
     }
 
     @Override
     public List<Meal> getAll(int userId) {
-        return crudRepository.findAll(userId) ;
+        return crudRepository.getAll(userId) ;
 //        return null;
     }
 
     @Override
     public List<Meal> getBetween(LocalDateTime startDate, LocalDateTime endDate, int userId) {
-        return null;
+        return crudRepository.getBetween(startDate, endDate, userId);
     }
 }
