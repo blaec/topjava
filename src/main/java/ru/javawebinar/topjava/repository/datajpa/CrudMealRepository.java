@@ -24,8 +24,8 @@ public interface CrudMealRepository extends JpaRepository<Meal, Integer> {
     @Modifying
     @Query("SELECT m FROM Meal m WHERE m.user.id=:userId")
     List<Meal> findAll(@Param("userId") int userId);
-
-    Optional<Meal> findByIdAndByUserId(int id, int userId);
+//
+//    Optional<Meal> findByIdAndByUserId(int id, int userId);
 
     @Transactional
     @Modifying
