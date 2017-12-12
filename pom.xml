@@ -14,7 +14,7 @@
     <properties>
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <project.reporting.outputencoding>UTF-8</project.reporting.outputencoding>
 
         <tomcat.version>8.5.24</tomcat.version>
         <spring.version>5.0.1.RELEASE</spring.version>
@@ -207,7 +207,7 @@
         <!--Web-->
         <dependency>
             <groupId>org.springframework</groupId>
-            <artifactId>spring-web</artifactId>
+            <artifactId>spring-webmvc</artifactId>
         </dependency>
 
         <dependency>
