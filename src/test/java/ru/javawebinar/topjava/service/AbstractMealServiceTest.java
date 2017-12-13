@@ -1,9 +1,6 @@
 package ru.javawebinar.topjava.service;
 
-import ch.qos.logback.core.db.dialect.HSQLDBDialect;
-import org.junit.AfterClass;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.util.exception.NotFoundException;
@@ -21,6 +18,16 @@ public abstract class AbstractMealServiceTest extends AbstractServiceTest {
 
     @Autowired
     protected MealService service;
+
+//    @Autowired
+//    private Environment environment;
+//
+//    private boolean isJDBC(){
+//        for(String profile : environment.getActiveProfiles()){
+//            if ("jdbc".contains(profile)) return true;
+//        }
+//        return false;
+//    }
 
     @Test
     public void delete() throws Exception {
@@ -81,6 +88,7 @@ public abstract class AbstractMealServiceTest extends AbstractServiceTest {
 
     @Test
     public void testValidation() throws Exception {
+        Assume.assumeFalse(isJDBC());
         validateRootCause(() -> service.create(new Meal(null, of(2015, Month.JUNE, 1, 18, 0), "  ", 300), USER_ID), ConstraintViolationException.class);
         validateRootCause(() -> service.create(new Meal(null, null, "Description", 300), USER_ID), ConstraintViolationException.class);
         validateRootCause(() -> service.create(new Meal(null, of(2015, Month.JUNE, 1, 18, 0), "Description", 9), USER_ID), ConstraintViolationException.class);
