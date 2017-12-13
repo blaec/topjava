@@ -11,6 +11,7 @@ import ru.javawebinar.topjava.web.user.AdminRestController;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 
 import static ru.javawebinar.topjava.UserTestData.ADMIN;
 
@@ -21,7 +22,10 @@ public class InMemoryAdminRestControllerTest {
     @BeforeClass
     public static void beforeClass() {
         appCtx = new ClassPathXmlApplicationContext("spring/spring-app.xml", "spring/mock.xml");
-        System.out.println("\n" + Arrays.toString(appCtx.getBeanDefinitionNames()) + "\n");
+        System.out.println("\n" + "******** Spring context (ClassPathXmlApplicationContext) ********");
+        Arrays.stream(appCtx.getBeanDefinitionNames()).forEach(System.out::println);
+        System.out.println("\n");
+//        System.out.println("\n" + Arrays.toString(appCtx.getBeanDefinitionNames()) + "\n");
         controller = appCtx.getBean(AdminRestController.class);
     }
 
