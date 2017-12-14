@@ -19,16 +19,6 @@ public abstract class AbstractMealServiceTest extends AbstractServiceTest {
     @Autowired
     protected MealService service;
 
-//    @Autowired
-//    private Environment environment;
-//
-//    private boolean isJDBC(){
-//        for(String profile : environment.getActiveProfiles()){
-//            if ("jdbc".contains(profile)) return true;
-//        }
-//        return false;
-//    }
-
     @Test
     public void delete() throws Exception {
         service.delete(MEAL1_ID, USER_ID);
