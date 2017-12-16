@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import static org.slf4j.LoggerFactory.getLogger;
 
@@ -40,9 +39,5 @@ public class UserServlet extends HttpServlet {
         log.debug("getAll");
         request.setAttribute("users", adminController.getAll());
         request.getRequestDispatcher("/users.jsp").forward(request, response);
-
-//        response.setContentType("text/html;charset=utf-8");
-//        PrintWriter pw = response.getWriter();
-//        pw.println("<H1>Hello World!</H1");
     }
 }
