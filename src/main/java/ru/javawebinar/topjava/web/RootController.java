@@ -15,18 +15,18 @@ public class RootController {
     @Autowired
     private UserService service;
 
-    @GetMapping("/")
+    @GetMapping(path = "/")
     public String root() {
         return "index";
     }
 
-    @GetMapping("/users")
+    @GetMapping(path = "/users")
     public String users(Model model) {
         model.addAttribute("users", service.getAll());
         return "users";
     }
 
-    @PostMapping("/users")
+    @PostMapping(path = "/users")
     public String setUser(HttpServletRequest request) {
         int userId = Integer.valueOf(request.getParameter("userId"));
         AuthorizedUser.setId(userId);
