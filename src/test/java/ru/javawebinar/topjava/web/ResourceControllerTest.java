@@ -16,9 +16,9 @@ public class ResourceControllerTest extends AbstractControllerTest {
         mockMvc.perform(get("/resources/css/style.css"))
                 .andDo(print())
                 .andExpect(status().isOk())
-//                .andExpect(content().contentType(MediaType.valueOf("text/css;pageEncoding=UTF-8")))
+//                .andExpect(content().contentType(MediaType.valueOf("text/plain;charset=ISO-8859-1")))
 //                .andExpect(content().contentType("text/css;charset=ISO-8859-1"))
                 .andExpect(content().contentTypeCompatibleWith("text/css"));
-//                .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_PLAIN));
+//                .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT>P));
     }
 }
