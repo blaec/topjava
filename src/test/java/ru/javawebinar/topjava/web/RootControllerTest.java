@@ -33,9 +33,9 @@ public class RootControllerTest extends AbstractControllerTest {
         mockMvc.perform(get("/meals"))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(view().name("meals"))
-                .andExpect(forwardedUrl("/WEB-INF/jsp/meals.jsp"))
-                .andExpect(model().attribute("meals", hasSize(0)));
+                .andExpect(view().name("mealForm"))
+                .andExpect(forwardedUrl("/WEB-INF/jsp/mealForm.jsp"))
+                .andExpect(model().attribute("mealForm", hasSize(6)));
 //                .andExpect(model().attribute("meals", hasItem(
 //                        allOf(
 //                                hasProperty("id", is(MEAL1.getId())),
