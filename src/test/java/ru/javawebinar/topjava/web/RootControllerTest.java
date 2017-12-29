@@ -37,9 +37,6 @@ public class RootControllerTest extends AbstractControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("meals"))
                 .andExpect(forwardedUrl("/WEB-INF/jsp/meals.jsp"))
-                // В RootControllerTest.testMeals() сделал проверку через model().attribute("meals", expectedValue).
-                // Сравнение происходит через MealWithExceed.equals(), который мы можем переопределить, т.к. MealWithExceed не является сущностью (entity).
-                // ... anyway, this line not works and it does not calls this equals method.
                 .andExpect(model().attribute("meals", MealsUtil.getWithExceeded(MealTestData.MEALS, AuthorizedUser.getCaloriesPerDay())));
     }
 
