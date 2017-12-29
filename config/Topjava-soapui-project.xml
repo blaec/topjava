@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project activeEnvironment="Default" name="Topjava" resourceRoot="" soapui-version="5.3.0" abortOnError="false" runType="SEQUENTIAL" id="b6a174fe-9cda-4410-af25-bdf04e1fed39" xmlns:con="http://eviware.com/soapui/config">
+<con:soapui-project activeEnvironment="Default" name="Topjava" resourceRoot="" soapui-version="5.4.0" abortOnError="false" runType="SEQUENTIAL" id="b6a174fe-9cda-4410-af25-bdf04e1fed39" xmlns:con="http://eviware.com/soapui/config">
     <con:settings/>
     <con:interface xsi:type="con:RestService" wadlVersion="http://wadl.dev.java.net/2009/02" name="http://localhost:8080" type="rest" id="eebe6f3c-c045-444a-ae8f-c0f4bbb345b5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
         <con:settings/>
@@ -303,7 +303,7 @@
                     <con:params/>
                     <con:element>data</con:element>
                 </con:representation>
-                <con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>200</con:status><con:params/><con:element>data</con:element></con:representation><con:request name="ProfileUpdate" mediaType="application/json" postQueryString="false" id="e45dfcce-1514-43ae-9233-a60407161db6">
+                <con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>200</con:status><con:params/><con:element>data</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>200</con:status><con:params/><con:element>data</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>200</con:status><con:params/><con:element>data</con:element></con:representation><con:request name="ProfileUpdate" mediaType="application/json" postQueryString="false" id="e45dfcce-1514-43ae-9233-a60407161db6">
                     <con:settings>
                         <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
                     </con:settings>
@@ -337,7 +337,7 @@
                 </con:representation>
                 <con:representation type="FAULT">
                     <con:mediaType>text/html;charset=utf-8</con:mediaType>
-                    <con:status>500</con:status>
+                    <con:status>500 405</con:status>
                     <con:params/>
                     <con:element>html</con:element>
                 </con:representation>
@@ -351,7 +351,7 @@
                     <con:params/>
                     <con:element>data</con:element>
                 </con:representation>
-                <con:request name="ProfileDelete" mediaType="application/json" id="efec2863-f29c-436a-8509-71ab92e2e670" postQueryString="false">
+                <con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>200</con:status><con:params/><con:element>data</con:element></con:representation><con:request name="ProfileDelete" mediaType="application/json" id="efec2863-f29c-436a-8509-71ab92e2e670" postQueryString="false">
                     <con:settings>
                         <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
                     </con:settings>
@@ -401,7 +401,7 @@
                 <con:parameters/>
                 <con:representation type="FAULT">
                     <con:mediaType>text/html;charset=utf-8</con:mediaType>
-                    <con:status>400 401</con:status>
+                    <con:status>400 401 500</con:status>
                     <con:params/>
                     <con:element>html</con:element>
                 </con:representation>
@@ -500,7 +500,7 @@
                     <con:params/>
                     <con:element>data</con:element>
                 </con:representation>
-                <con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>200</con:status><con:params/><con:element>data</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>200</con:status><con:params/><con:element>data</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>200</con:status><con:params/><con:element>data</con:element></con:representation><con:request name="MealUpdate" id="122a83d5-6b18-495a-ae99-c86f7faea62f" mediaType="application/json" postQueryString="false">
+                <con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>200</con:status><con:params/><con:element>data</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>200</con:status><con:params/><con:element>data</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>200</con:status><con:params/><con:element>data</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>200</con:status><con:params/><con:element>data</con:element></con:representation><con:request name="MealUpdate" id="122a83d5-6b18-495a-ae99-c86f7faea62f" mediaType="application/json" postQueryString="false">
                     <con:settings>
                         <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
                     </con:settings>
