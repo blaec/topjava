@@ -1,6 +1,6 @@
 function makeEditable() {
     $(".delete").click(function () {
-        deleteRow($(".userBean").attr("id"));
+        deleteRow($("[title=DeleteRow]").attr("id"));
     });
 
     $("#detailsForm").submit(function () {
