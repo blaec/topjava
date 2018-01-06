@@ -20,25 +20,23 @@
                         <div class="panel-body">
                             <div class="form-horizontal" id="filter">
                                 <div class="form-group">
-                                    <label class="control-label col-sm-3" for="startDate"><spring:message
-                                            code="meal.startDate"/>:</label>
+                                    <label class="control-label col-sm-3" for="startDate"><spring:message code="meal.startDate"/>:</label>
                                     <div class="col-sm-3">
                                         <input class="form-control" name="startDate" id="startDate">
                                     </div>
-                                    <label class="control-label col-sm-4" for="endDate"><spring:message
-                                            code="meal.endDate"/>:</label>
+
+                                    <label class="control-label col-sm-4" for="startTime"><spring:message code="meal.startTime"/>:</label>
                                     <div class="col-sm-2">
-                                        <input class="form-control" name="endDate" id="endDate">
+                                        <input class="form-control" name="startTime" id="startTime">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label col-sm-3" for="startTime"><spring:message
-                                            code="meal.startTime"/>:</label>
+                                    <label class="control-label col-sm-3" for="endDate"><spring:message code="meal.endDate"/>:</label>
                                     <div class="col-sm-3">
-                                        <input class="form-control" name="startTime" id="startTime">
+                                        <input class="form-control" name="endDate" id="endDate">
                                     </div>
-                                    <label class="control-label col-sm-4" for="endTime"><spring:message
-                                            code="meal.endTime"/>:</label>
+
+                                    <label class="control-label col-sm-4" for="endTime"><spring:message code="meal.endTime"/>:</label>
                                     <div class="col-sm-2">
                                         <input class="form-control" name="endTime" id="endTime">
                                     </div>
@@ -46,10 +44,10 @@
                             </div>
                         </div>
                         <div class="panel-footer text-right">
-                            <button class="btn btn-danger" type="submit">
+                            <button class="btn btn-danger" type="button" onclick="clearFilter()">
                                 <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                             </button>
-                            <button class="btn btn-primary" type="submit">
+                            <button class="btn btn-primary" type="button" onclick="updateTable()">
                                 <span class="glyphicon glyphicon-filter" aria-hidden="true"></span>
                             </button>
                         </div>
