@@ -13,15 +13,15 @@ import java.util.List;
 public class MealAjaxController extends AbstractMealController {
 
     @Override
-    @DeleteMapping("/{id}")
-    public void delete(int id) {
-        super.delete(id);
-    }
-
-    @Override
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<MealWithExceed> getAll() {
         return super.getAll();
+    }
+
+    @Override
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable("id") int id) {
+        super.delete(id);
     }
 
     @PostMapping
