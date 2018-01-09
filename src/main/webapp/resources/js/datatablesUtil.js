@@ -42,6 +42,10 @@ function clearFilter() {
     $("#filter").find(":input").val("");
 }
 
+function isChecked() {
+    var id = $("[title=DeleteRow]").attr("id");
+}
+
 function save() {
     var form = $("#detailsForm");
     $.ajax({
