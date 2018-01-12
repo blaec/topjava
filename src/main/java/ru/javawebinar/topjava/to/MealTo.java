@@ -4,9 +4,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 
-public class MealTo {
-    Integer id;
-
+public class MealTo extends BaseTo{
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     LocalDateTime dateTime;
 
@@ -18,18 +16,10 @@ public class MealTo {
     }
 
     public MealTo(Integer id, LocalDateTime dateTime, String description, int calories) {
-        this.id = id;
+        super(id);
         this.dateTime = dateTime;
         this.description = description;
         this.calories = calories;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public LocalDateTime getDateTime() {
