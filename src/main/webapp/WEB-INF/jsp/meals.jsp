@@ -95,7 +95,8 @@
                                 code="meal.dateTime"/></label>
 
                         <div class="col-xs-9">
-                            <input type="datetime-local" class="form-control" id="dateTime" name="dateTime"
+                            <input class="form-control" id="dateTime" name="dateTime"
+                            <%--<input type="datetime-local" class="form-control" id="dateTime" name="dateTime"--%>
                                    placeholder="<spring:message code="meal.dateTime"/>">
                         </div>
                     </div>
@@ -130,6 +131,9 @@
 </div>
 <jsp:include page="fragments/footer.jsp"/>
 </body>
+<script>
+    $('#dateTime').datetimepicker();
+</script>
 <script type="text/javascript">
     var i18n = [];
     i18n["addTitle"] = '<spring:message code="meal.add"/>';
